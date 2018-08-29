@@ -27,7 +27,7 @@ function resolve (dir) {
 // const appEntry = { app: resolve('./src/main.js') }
 // const pagesEntry = getEntry(resolve('./src'), 'pages/**/main.js')
 // const entry = Object.assign({}, appEntry, pagesEntry)
-const entry = MpvueEntry.getEntry('./src/router/router.js')
+const entry = MpvueEntry.getEntry('src/router/router.js')
 
 module.exports = {
   // 如果要自定义生成的 dist 目录里面的文件路径，
@@ -109,6 +109,7 @@ module.exports = {
   },
   plugins: [
     new MpvuePlugin(),
+    new MpvueEntry(),
     new CopyWebpackPlugin([{
       from: '**/*.json',
       to: ''
