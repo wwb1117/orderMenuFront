@@ -1,60 +1,44 @@
 <template>
-    <div class="container" @click="clickHandle('test click', $event)">
-
-        <div class="userinfo" @click="bindViewTap">
-            <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-            <div class="userinfo-nickname">
-                <card :text="userInfo.nickName"></card>
-            </div>
+    <div class="container">
+        <div style="margin-top: 250rpx; width: 100%; padding-left: 20rpx; padding-right: 20rpx;">
+            <!-- <i-input v-model="deskNum" type="number" autofocus  placeholder="请输入桌号" /> -->
+            <input style="padding: 20rpx 20rpx; border: 1px solid #19be6b;" autofocus="autofocus" v-model="deskNum" placeholder="请输入桌号" type="number">
         </div>
-        <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
-        <i-button type="success"></i-button>
+        <div style="margin-top: 120rpx; width: 100%;">
+            <i-button @click="login" type="success">进入点餐</i-button>
+        </div>
+        <i-toast id="toast" />
+
     </div>
 </template>
 
 <script>
-    import card from '@/components/card'
+    const { $Toast } = require('../../../static/iview/base/index')
 
     export default {
         data() {
             return {
-                motto: 'Hello World',
-                userInfo: {}
+                userInfo: {},
+                deskNum: null
             }
         },
-
-        components: {
-            card
-        },
-
         methods: {
-            bindViewTap() {
-                const url = '../logs/main'
-
-                wx.navigateTo({
-                    url
-                })
-            },
-            getUserInfo() {
-                // 调用登录接口
-                wx.login({
-                    success: () => {
-                        wx.getUserInfo({
-                            success: (res) => {
-                                this.userInfo = res.userInfo
-                            }
-                        })
-                    }
-                })
-            },
-            clickHandle(msg, ev) {
-                console.log('clickHandle:', msg, ev)
+            login() {
+                if (this.deskNum) {
+                    wx.redirectTo({
+                        url: '/pages/counter/main'
+                    })
+                } else {
+                    $Toast({
+                        content: '请输入桌号!',
+                        type: 'warning'
+                    });
+                }
             }
         },
 
         created() {
             // 调用应用实例的方法获取全局数据
-            this.getUserInfo()
         }
     }
 
@@ -77,18 +61,6 @@
     .userinfo-nickname {
         color: #aaa;
     }
-
-    .usermotto {
-        margin-top: 150px;
-    }
-
-    .form-control {
-        display: block;
-        padding: 0 12px;
-        margin-bottom: 5px;
-        border: 1px solid #ccc;
-    }
-
     .counter {
         display: inline-block;
         margin: 10px auto;

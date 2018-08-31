@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+import '../static/css/app.css'
 
 Vue.config.productionTip = false
 App.mpType = 'app'

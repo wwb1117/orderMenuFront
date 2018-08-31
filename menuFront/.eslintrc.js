@@ -17,6 +17,10 @@ module.exports = {
       // https://github.com/standard/standard/blob/master/docs/RULES-en.md
       'standard'
     ],
+    globals: {
+        wx: true,
+        $Toast: true
+    },
     // required to lint *.vue files
     plugins: [
       'vue'
@@ -214,6 +218,5 @@ module.exports = {
       "yoda": [2, "never"],//禁止尤达条件
       "one-var": "off", // 多个变量声明时，允许多个var关键字
       "no-useless-return": "off"
-    },
-    globals: { wx: true }
+    }
   }
