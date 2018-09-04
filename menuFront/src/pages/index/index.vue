@@ -25,8 +25,9 @@
         methods: {
             login() {
                 if (this.deskNum) {
-                    wx.redirectTo({
-                        url: '/pages/counter/main'
+                    this.$store.commit('setDeskNum', this.deskNum)
+                    wx.navigateTo({
+                        url: '/pages/order/main'
                     })
                 } else {
                     $Toast({
@@ -36,9 +37,11 @@
                 }
             }
         },
-
         created() {
             // 调用应用实例的方法获取全局数据
+        },
+        onHide(){
+            this.deskNum = null
         }
     }
 

@@ -27,6 +27,9 @@
         padding: 20rpx 0;
         box-sizing: border-box;
     }
+    div{
+        box-sizing: border-box;
+    }
 
     /* this rule will be remove */
     * {
@@ -34,7 +37,6 @@
         -moz-transition: width 2s;
         -webkit-transition: width 2s;
         -o-transition: width 2s;
-        box-sizing: border-box;
     }
 
 </style>

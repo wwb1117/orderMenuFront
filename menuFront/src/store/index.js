@@ -7,9 +7,13 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        count: 0
+        count: 0,
+        deskNum: null
     },
     mutations: {
+        setDeskNum(state, value){
+            state.deskNum = value
+        },
         increment: (state) => {
             const obj = state
 
