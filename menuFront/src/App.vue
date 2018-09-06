@@ -27,7 +27,8 @@
         padding: 20rpx 0;
         box-sizing: border-box;
     }
-    div{
+
+    div {
         box-sizing: border-box;
     }
 

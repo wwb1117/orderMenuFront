@@ -1,5 +1,5 @@
 import qs from 'qs'
-var baseUrl = ''
+var baseUrl = '/api'
 
 function requestAll(url, data, header, method) {
     return new Promise((resolve, reject) => {
