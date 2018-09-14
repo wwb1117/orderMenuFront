@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <div style="margin-top: 250rpx; width: 100%; padding-left: 20rpx; padding-right: 20rpx;">
-            <!-- <i-input v-model="deskNum" type="number" autofocus  placeholder="请输入桌号" /> -->
-            <input style="padding: 20rpx 20rpx; border: 1px solid #19be6b;" autofocus="autofocus" v-model="deskNum" placeholder="请输入桌号" type="number">
+            <i-input @change="inputChange" v-model="deskNum" type="number" autofocus  placeholder="请输入桌号" />
+            <!-- <input @change="inputChange" style="padding: 20rpx 20rpx; border: 1px solid #19be6b;" autofocus="autofocus" v-model="deskNum" placeholder="请输入桌号" type="number"> -->
         </div>
         <div style="margin-top: 120rpx; width: 100%;">
             <i-button @click="login" type="success">进入点餐</i-button>
@@ -35,6 +35,9 @@
                         type: 'warning'
                     });
                 }
+            },
+            inputChange(){
+                console.log(this.deskNum)
             }
         },
         created() {
