@@ -20,13 +20,25 @@
 			"current": -1,
 			"list": []
 		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
 		"game": {
 			"currentL": -1,
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
-			"list": []
+			"current": 0,
+			"list": [
+				{
+					"id": -1,
+					"name": "自定义扫码",
+					"pathName": "pages/index/main",
+					"query": "scene=8",
+					"scene": "1047"
+				}
+			]
 		}
 	}
 }

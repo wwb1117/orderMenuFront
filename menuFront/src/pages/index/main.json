@@ -1,8 +1,0 @@
-{
-    "navigationBarTitleText": "小贝点餐,欢迎你",
-    "usingComponents": {
-      "i-button": "../../../static/iview/button/index",
-      "i-toast": "../../static/iview/toast/index",
-      "i-input": "../../../static/iview/input/index"
-    }
-}

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import App from './App'
+import './assets/weui.css'
 
 import store from './store'
 Vue.prototype.$store = store;

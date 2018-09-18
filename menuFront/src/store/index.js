@@ -8,11 +8,11 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         count: 0,
-        deskNum: null
+        deskNo: null
     },
     mutations: {
-        setDeskNum(state, value){
-            state.deskNum = value
+        setDeskNo(state, value){
+            state.deskNo = value
         },
         increment: (state) => {
             const obj = state
