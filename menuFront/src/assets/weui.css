@@ -1216,3 +1216,6 @@
   body {
     -webkit-tap-highlight-color: transparent;
   }
+  .width100{
+      width: 100%;
+  }

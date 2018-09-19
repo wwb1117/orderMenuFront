@@ -47,35 +47,18 @@
         </div>
 
         <div class="width100 goodsWrap weui-flex">
-            <scroll-view class="left_menu_scroll" :scroll-top="left_menu_top" scroll-with-animation="true" scroll-y :scroll-into-view="navId">
-                <ul>
-                    <li class="left_menu_item"
-                        v-for="(menu, index) in menus" :key="index"
-                        :class="index===currentIndex ? 'current' : ''"
-                        @click="selectMenu(index, $event)"
-                    >
-                       <p class="text">{{menu.name}}</p>
-                    </li>
-                </ul>
-            </scroll-view>
-            <scroll-view class="right_menu_scroll"
-                scroll-y
-                :scroll-into-view="contentId"
-                @scroll="onScroll"
-                scroll-with-animation="true">
-                <ul>
-                    <li class="right_item_li" v-for="(menu, i) in menus" :key="i" :id="'con_'+i">
-                        <div class="title">{{menu.name}}</div>
-                        <ul>
-                            <li v-for="(item, j) in menu.data" :key="j">
-                                <div class="data-wrapper">
-                                    <div class="data">{{item.name}}</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </scroll-view>
+            <div class="left_menu_wrap">
+                <div class="left_menu">
+                    <div v-for="(item, index) in leftMenu" :key="index" class="left_menu_item">{{item.title}}</div>
+                </div>
+            </div>
+            <div class="weui-flex__item ">
+                <div class="right_menu_wrap">
+                    <div class="right_menu">
+                        <div v-for="(item, index) in rightMenu" :key="index" class="right_menu_item">{{item.title}}</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="footer">
@@ -86,107 +69,40 @@
 </template>
 
 <script>
-    import menuData from '../../data/menu'
     // import BScroll from 'better-scroll'
-    // import Cscard from '../../components/cscardMenu'
     export default {
         data() {
             return {
                 inputShowed: false,
                 inputVal: "",
                 userInfo: {},
-
-                contentId: '',
-                navId: '', // 导航模块对应的id，用来联动内容区域
-                currentIndex: 0,
-                navulHeight: 0, // 左边导航里ul高度
-                navItemHeight: 0, // 每个导航高度
-                contentHeight: 0, // 右边内容区域scroll-view高度
-                listHeight: [], // foods内部块的高度
-                left_menu_top: 0, //左边导航补偿
-
-                menus: menuData,
+                leftMenu: [
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'}
+                ],
+                rightMenu: [
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'},
+                    {title: '蔬菜'}
+                ],
                 deskNum: null
             }
         },
-        watch: {
-            currentIndex() {
-                console.log(this.currentIndex)
-                console.log(this.contentHeight)
-                console.log(this.navulHeight)
-                let h = this.currentIndex * this.navItemHeight
-
-                if (h > this.contentHeight) {
-                    // 导航滑动
-                    console.log('yes')
-                    this.navId = `nav_${this.currentIndex}`
-                } else {
-                    this.navId = 'nav_0'
-                    console.log('no')
-                }
-
-            }
-        },
-        computed: {
-            // currentIndex() {
-            //     const {
-            //         scrollY,
-            //         rightTops
-            //     } = this
-
-            //     let index = rightTops.findIndex((height, i) => {
-            //         return scrollY >= rightTops[i] && scrollY < rightTops[i + 1]
-            //     })
-
-            //     if (scrollY > rightTops[index] + 50) {
-            //         index++;
-            //     }
-            //     return index
-            // }
-        },
         methods: {
-            selectMenu(index) {
-                this.contentId = `con_${index}`
-                this.currentIndex = index
-            },
-            onScroll(e) {
-                this.contentId = ''
-                let scrollTop = e.target.scrollTop
-                let length = this.listHeight.length
-
-                if (scrollTop >= this.listHeight[length - 1] - this.contentHeight) {
-                    return
-                } else if (scrollTop > 0 && scrollTop < this.listHeight[0]) {
-                    this.currentIndex = 0
-                }
-                for (let i = 0; i < length; i++) {
-                    if (scrollTop >= this.listHeight[i - 1] && scrollTop < this.listHeight[i]) {
-                        this.currentIndex = i
-                    }
-                }
-            },
-            _calculateHeight() {
-                let height = 0
-                var that = this
-                var query = wx.createSelectorQuery()
-
-                query.selectAll('.right_item_li').boundingClientRect(function(rects){
-                    rects.forEach(function(rect){
-                        height += rect.height
-                        that.listHeight.push(height)
-                    })
-                })
-                query.select('.right_menu_scroll').boundingClientRect((rect) => {
-                    this.contentHeight = rect.height
-                })
-                query.select('.left_menu_scroll').boundingClientRect((rect) => {
-                    this.navulHeight = rect.height
-                })
-                query.select('.left_menu_item').boundingClientRect((rect) => {
-                    this.navItemHeight = rect.height
-                }).exec()
-
-            },
             login() {
                 if (this.deskNum) {
                     this.$store.commit('setDeskNum', this.deskNum)
@@ -209,23 +125,18 @@
                 this.inputShowed = false
             },
             inputTyping(e) {
+                console.log(e);
                 this.inputVal = e.mp.detail.value
             }
-
         },
         created() {
             // 调用应用实例的方法获取全局数据
-
-        },
-        mounted(){
-            this.$nextTick(() => {
-                this._calculateHeight()
-            })
         },
         onLoad(options) {
             if (options.scene){
                 var scene = decodeURIComponent(options.scene)
 
+                console.log(scene)
                 this.$store.commit('setDeskNo', scene)
             }
         },
@@ -249,14 +160,32 @@
     height: 950rpx;
     overflow: auto;
 }
-.current{
-    background: red;
+.left_menu_wrap{
+    height: 100%;
+    overflow: hidden;
 }
-.left_menu_scroll{
-    width: 250rpx;
-    text-align: center;
+.right_menu_wrap{
+    height: 100%;
+    overflow: hidden;
+}
+.left_menu{
+    width: 200rpx;
+    height: 100%;
+    overflow: auto;
+    border: 1rpx solid #ebebeb;
+}
+.right_menu{
+    height: 100%;
+    overflow: auto;
+    border: 1rpx solid #ebebeb;
 }
 .left_menu_item{
+    height: 150rpx;
+    line-height: 150rpx;
+    border: 1rpx solid #ebebeb;
+    text-align: center;
+}
+.right_menu_item{
     height: 150rpx;
     line-height: 150rpx;
 }
@@ -297,5 +226,4 @@
     border: none;
     box-shadow:0rpx 1rpx 15rpx 1rpx #efeff4;
 }
-
 </style>
