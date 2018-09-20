@@ -47,9 +47,10 @@
         </div>
 
         <div class="width100 goodsWrap weui-flex">
-            <scroll-view class="left_menu_scroll" :scroll-top="left_menu_top" scroll-with-animation="true" scroll-y :scroll-into-view="navId">
+            <scroll-view class="left_menu_scroll" scroll-with-animation="true" scroll-y :scroll-into-view="navId">
                 <ul>
                     <li class="left_menu_item"
+                        :id="'nav_'+index"
                         v-for="(menu, index) in menus" :key="index"
                         :class="index===currentIndex ? 'current' : ''"
                         @click="selectMenu(index, $event)"
@@ -111,20 +112,17 @@
         },
         watch: {
             currentIndex() {
-                console.log(this.currentIndex)
-                console.log(this.contentHeight)
-                console.log(this.navulHeight)
-                let h = this.currentIndex * this.navItemHeight
 
-                if (h > this.contentHeight) {
-                    // 导航滑动
-                    console.log('yes')
-                    this.navId = `nav_${this.currentIndex}`
-                } else {
-                    this.navId = 'nav_0'
-                    console.log('no')
+                if (this.contentHeight <= this.navulHeight) {
+                    let h = this.currentIndex * this.navItemHeight
+
+                    if (h > this.contentHeight) {
+                        // 导航滑动
+                        this.navId = `nav_${this.currentIndex - 3}` //特殊处理,待修改
+                    } else {
+                        this.navId = 'nav_0'
+                    }
                 }
-
             }
         },
         computed: {
