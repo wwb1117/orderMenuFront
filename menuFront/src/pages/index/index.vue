@@ -70,6 +70,7 @@
                         <ul>
                             <li v-for="(item, j) in menu.data" :key="j">
                                 <div class="data-wrapper">
+                                    <img style="width: 100%;height: 380rpx" src="../../../static/img/food.jpg" alt="food">
                                     <div class="data">{{item.name}}</div>
                                 </div>
                             </li>
@@ -88,8 +89,6 @@
 
 <script>
     import menuData from '../../data/menu'
-    // import BScroll from 'better-scroll'
-    // import Cscard from '../../components/cscardMenu'
     export default {
         data() {
             return {
@@ -112,7 +111,6 @@
         },
         watch: {
             currentIndex() {
-
                 if (this.contentHeight <= this.navulHeight) {
                     let h = this.currentIndex * this.navItemHeight
 
@@ -124,23 +122,6 @@
                     }
                 }
             }
-        },
-        computed: {
-            // currentIndex() {
-            //     const {
-            //         scrollY,
-            //         rightTops
-            //     } = this
-
-            //     let index = rightTops.findIndex((height, i) => {
-            //         return scrollY >= rightTops[i] && scrollY < rightTops[i + 1]
-            //     })
-
-            //     if (scrollY > rightTops[index] + 50) {
-            //         index++;
-            //     }
-            //     return index
-            // }
         },
         methods: {
             selectMenu(index) {
@@ -211,10 +192,6 @@
             }
 
         },
-        created() {
-            // 调用应用实例的方法获取全局数据
-
-        },
         mounted(){
             this.$nextTick(() => {
                 this._calculateHeight()
@@ -247,17 +224,29 @@
     height: 950rpx;
     overflow: auto;
 }
-.current{
-    background: red;
-}
 .left_menu_scroll{
-    width: 250rpx;
+    width: 270rpx;
     text-align: center;
+    background: #efefef;
+}
+.current{
+    border-left: 10rpx solid #e83724;
+    background: #fff;
+    color: #d44022;
 }
 .left_menu_item{
     height: 150rpx;
     line-height: 150rpx;
+    border-bottom: 1rpx solid #e6e6e6;
 }
+
+.right_item_li .title{
+    height: 150rpx;
+    line-height: 150rpx;
+    text-align: center;
+    color: #d44022;
+}
+
 .searchbar-result {
   margin-top: 0;
   font-size: 14rpx;

@@ -1,6 +1,6 @@
 export default [
     {
-        name: '菜单1',
+        name: '特色菜',
         data: [
             {
                 name: '1.1'
@@ -23,7 +23,7 @@ export default [
         ]
     },
     {
-        name: '菜单2',
+        name: '鲜品类',
         data: [
             {
                 name: '2.1'
@@ -46,7 +46,7 @@ export default [
         ]
     },
     {
-        name: '菜单3',
+        name: '蔬菜类',
         data: [
             {
                 name: '3.1'
@@ -69,7 +69,7 @@ export default [
         ]
     },
     {
-        name: '菜单4',
+        name: '牛羊肉',
         data: [
             {
                 name: '4.1'
@@ -92,7 +92,7 @@ export default [
         ]
     },
     {
-        name: '菜单5',
+        name: '奶制品',
         data: [
             {
                 name: '5.1'
@@ -115,7 +115,7 @@ export default [
         ]
     },
     {
-        name: '菜单6',
+        name: '串串香',
         data: [
             {
                 name: '6.1'
@@ -138,7 +138,7 @@ export default [
         ]
     },
     {
-        name: '菜单7',
+        name: '三鲜类',
         data: [
             {
                 name: '7.1'
@@ -161,7 +161,7 @@ export default [
         ]
     },
     {
-        name: '菜单8',
+        name: '豆制品',
         data: [
             {
                 name: '8.1'
@@ -184,7 +184,7 @@ export default [
         ]
     },
     {
-        name: '菜单9',
+        name: '其他',
         data: [
             {
                 name: '9.1'
@@ -207,7 +207,7 @@ export default [
         ]
     },
     {
-        name: '菜单10',
+        name: '优惠',
         data: [
             {
                 name: '10.1'
