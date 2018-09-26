@@ -26,6 +26,7 @@
         justify-content: space-between;
         padding: 0rpx;
         box-sizing: border-box;
+        font-size: 28rpx;
     }
 
     div {

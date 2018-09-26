@@ -69,9 +69,13 @@
                         <div class="title">{{menu.name}}</div>
                         <ul>
                             <li v-for="(item, j) in menu.data" :key="j">
-                                <div class="data-wrapper">
-                                    <img style="width: 100%;height: 380rpx" src="../../../static/img/food.jpg" alt="food">
-                                    <div class="data">{{item.name}}</div>
+                                <div class="goods_wrapper">
+                                    <img style="width: 100%;height: 100%" src="../../../static/img/food.jpg" alt="food">
+                                    <div class="goods_wrapper_item">
+                                        <span>麻辣小龙虾</span><br>
+                                        <span>¥38起</span>
+                                        <button class="weui-btn" size="mini" type="warn">选规格</button>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
@@ -284,5 +288,25 @@
     border: none;
     box-shadow:0rpx 1rpx 15rpx 1rpx #efeff4;
 }
-
+.goods_wrapper{
+    position: relative;
+    height: 380rpx;
+}
+.goods_wrapper_item{
+    position: absolute;
+    bottom: 0rpx;
+    width: 100%;
+    height: 100rpx;
+    padding: 10rpx 20rpx;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.3)
+}
+.goods_wrapper_item button{
+    position: absolute;
+    right: 20rpx;
+    top: 0;
+    width: 170rpx;
+    margin-top: 10rpx;
+    font-size: 28rpx;
+}
 </style>
