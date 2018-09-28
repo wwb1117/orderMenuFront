@@ -55,7 +55,7 @@
                         :class="index===currentIndex ? 'current' : ''"
                         @click="selectMenu(index, $event)"
                     >
-                       <p class="text">{{menu.name}}</p>
+                       <p class="text">{{menu.cateName}}</p>
                     </li>
                 </ul>
             </scroll-view>
@@ -66,14 +66,16 @@
                 scroll-with-animation="true">
                 <ul>
                     <li class="right_item_li" v-for="(menu, i) in menus" :key="i" :id="'con_'+i">
-                        <div class="title">{{menu.name}}</div>
+                        <div class="title">{{menu.cateName}}</div>
                         <ul>
                             <li v-for="(item, j) in menu.data" :key="j">
                                 <div class="goods_wrapper">
                                     <img style="width: 100%;height: 100%" src="../../../static/img/food.jpg" alt="food">
                                     <div class="goods_wrapper_item">
-                                        <span>麻辣小龙虾</span><br>
-                                        <span>¥38起</span>
+                                        <span v-text="item.goodsName"></span><br>
+                                        <span>¥</span>
+                                        <span v-text="item.lowPrice"></span>
+                                        <span>起</span>
                                         <button class="weui-btn" size="mini" type="warn">选规格</button>
                                     </div>
                                 </div>
@@ -306,6 +308,7 @@
     right: 20rpx;
     top: 0;
     width: 170rpx;
+
     margin-top: 10rpx;
     font-size: 28rpx;
 }
