@@ -23,7 +23,7 @@
                     <div class="weui-cells searchbar-result" v-if="inputVal.length > 0">
                         <navigator class="weui-cell" hover-class="weui-cell_active">
                             <div class="weui-cell__bd">
-                                <div>实时搜索文本1122</div>
+                                <div>eeeeee</div>
                             </div>
                         </navigator>
                         <navigator class="weui-cell" hover-class="weui-cell_active">
@@ -55,7 +55,7 @@
                         :class="index===currentIndex ? 'current' : ''"
                         @click="selectMenu(index, $event)"
                     >
-                       <p class="text">{{menu.cateName}}</p>
+                       <p class="text">{{menu.categoryName}}</p>
                     </li>
                 </ul>
             </scroll-view>
@@ -66,9 +66,9 @@
                 scroll-with-animation="true">
                 <ul>
                     <li class="right_item_li" v-for="(menu, i) in menus" :key="i" :id="'con_'+i">
-                        <div class="title">{{menu.cateName}}</div>
+                        <div class="title">{{menu.categoryName}}</div>
                         <ul>
-                            <li v-for="(item, j) in menu.data" :key="j">
+                            <li v-for="(item, j) in menu.goodsList" :key="j">
                                 <div class="goods_wrapper">
                                     <img style="width: 100%;height: 100%" src="../../../static/img/food.jpg" alt="food">
                                     <div class="goods_wrapper_item">
@@ -95,6 +95,7 @@
 
 <script>
     import menuData from '../../data/menu'
+    import api from 'api/index'
     export default {
         data() {
             return {
@@ -195,6 +196,12 @@
             },
             inputTyping(e) {
                 this.inputVal = e.mp.detail.value
+            },
+            getMenuData(){
+                api.getMenu().then((response) => {
+                    this.menus = response.data
+                    console.log(this.menus)
+                })
             }
 
         },
@@ -208,7 +215,12 @@
                 var scene = decodeURIComponent(options.scene)
 
                 this.$store.commit('setDeskNo', scene)
+                this.getMenuData()
+
             }
+        },
+        activated(){
+
         },
         onHide() {
             this.deskNum = null

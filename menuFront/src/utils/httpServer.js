@@ -1,17 +1,17 @@
 import qs from 'qs'
-var baseUrl = '/api'
+var baseUrl = 'http://div.mytest.com/api'
 
 function requestAll(url, data, header, method) {
     return new Promise((resolve, reject) => {
         wx.request({
-            url: `${baseUrl}/${url}`,
+            url: `${baseUrl}${url}`,
             data: data,
             header: header,
             method: method,
             success: res => {
                 if (res.statusCode === 200) {
                     //200: 服务端业务处理正常结束
-                    resolve(res)
+                    resolve(res.data)
                 } else {
                     reject(res)
                 }

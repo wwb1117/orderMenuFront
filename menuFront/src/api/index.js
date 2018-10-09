@@ -1,7 +1,10 @@
-import HttpClient from 'utils/httpServer';
+import WXHTTP from 'utils/httpServer';
 
 export default {
     login(data){
-        return HttpClient.get('/order/list', data);
+        return WXHTTP.get('/order/list', data);
+    },
+    getMenu(data){
+        return WXHTTP.get('/order/menu', data);
     }
 }
