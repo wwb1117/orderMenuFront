@@ -112,7 +112,7 @@
                 </div>
                 <div v-show="currentGood.cookSkuList.length > 0" class="cookSkuWrap">
                     <div style="padding: 0 20rpx 20rpx 20rpx;">
-                        选择做法
+                        选择口味
                     </div>
                     <div>
                         <button v-for="(item, index) in currentGood.cookSkuList" :key="index" :type="index == currentCookIndex ? 'warn' : 'defalut'" @click="skuCookChooseEvent(index)" style="margin: 0 20rpx;" size="mini" >{{item.skuName}}</button>
@@ -136,14 +136,17 @@
         <div class="footer">
 
         </div>
-
+        <toast className="warnMsg" iconClass="fa fa-exclamation-circle" :message="msgText" :visible="msgvisible"></toast>
     </div>
 </template>
 
 <script>
-    import menuData from '../../data/menu'
+    import toast from 'mpvue-toast'
     import api from 'api/index'
     export default {
+        components: {
+            toast
+        },
         data() {
             return {
                 inputShowed: false,
@@ -159,6 +162,8 @@
                     sizeSkuList: [],
                     cookSkuList: []
                 },
+                msgText: '请选择规格!',
+                msgvisible: false,
                 contentId: '',
                 navId: '', // 导航模块对应的id，用来联动内容区域
                 currentIndex: 0,
@@ -168,7 +173,7 @@
                 listHeight: [], // foods内部块的高度
                 left_menu_top: 0, //左边导航补偿
 
-                menus: menuData,
+                menus: [],
                 deskNum: null
             }
         },
@@ -189,17 +194,51 @@
         methods: {
             chooseGoodAddEvent(){
 
-                if (currentGood.sizeSkuList.length > 0 && this.currentSizeIndex == null) {
+                if (this.currentGood.sizeSkuList.length > 0 && this.currentSizeIndex === null) {
+                    this.msgText = '请选择规格!'
+                    this.msgvisible = true
+
+                    setTimeout(() => {
+                        this.msgvisible = false
+                    }, 2000)
+
+                }
+                if (this.currentGood.cookSkuList.length > 0 && this.currentCookIndex === null) {
+                    this.msgText = '请选择口味!'
+                    this.msgvisible = true
+
+                    setTimeout(() => {
+                        this.msgvisible = false
+                    }, 2000)
 
                 }
                 let param = {
+                    deskNo: this.$store.state.deskNo,
+                    goodId: this.currentGood._id,
+                    goodName: this.currentGood.goodName,
                     goodCount: this.currentCount,
                     goodUnitPrice: this.currentPrice,
                     goodTotalPrice: this.currentPrice * this.currentCount
                 }
 
-                api.addGoodToOrder().then((response) => {
+                if (this.currentGood.sizeSkuList.length == 0) {
+                    param.sizeSkuId = ''
+                    param.sizeSkuName = '标准规格'
+                } else {
+                    param.sizeSkuId = this.currentGood.sizeSkuList[this.currentSizeIndex].sizeSkuId
+                    param.sizeSkuName = this.currentGood.sizeSkuList[this.currentSizeIndex].skuName
+                }
 
+                if (this.currentGood.cookSkuList.length == 0) {
+                    param.cookSkuId = ''
+                    param.cookSkuName = ''
+                } else {
+                    param.cookSkuId = this.currentGood.cookSkuList[this.currentCookIndex].cookSkuId
+                    param.cookSkuName = this.currentGood.cookSkuList[this.currentCookIndex].skuName
+                }
+
+                api.addGoodToOrder(param).then((response) => {
+                    console.log(response)
                 })
             },
             skuSizeChooseEvent(index){
@@ -262,19 +301,27 @@
                 var query = wx.createSelectorQuery()
 
                 query.selectAll('.right_item_li').boundingClientRect(function(rects){
-                    rects.forEach(function(rect){
-                        height += rect.height
-                        that.listHeight.push(height)
-                    })
+                    if (rects.length > 0) {
+                        rects.forEach(function(rect){
+                            height += rect.height
+                            that.listHeight.push(height)
+                        })
+                    }
                 })
                 query.select('.right_menu_scroll').boundingClientRect((rect) => {
-                    this.contentHeight = rect.height
+                    if (rect) {
+                        this.contentHeight = rect.height
+                    }
                 })
                 query.select('.left_menu_scroll').boundingClientRect((rect) => {
-                    this.navulHeight = rect.height
+                    if (rect) {
+                        this.navulHeight = rect.height
+                    }
                 })
                 query.select('.left_menu_item').boundingClientRect((rect) => {
-                    this.navItemHeight = rect.height
+                    if (rect) {
+                        this.navItemHeight = rect.height
+                    }
                 }).exec()
 
             },

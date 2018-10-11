@@ -41,6 +41,10 @@
     .floatRight{
         float: right;
     }
+    .warnMsg{
+        background-color: #fdf6ec !important;
+        color: #e6a23c !important;
+    }
 
     /* this rule will be remove */
     * {
