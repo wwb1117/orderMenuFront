@@ -12,6 +12,7 @@ export default {
     },
     addGoodToOrder(data){
         return WXHTTP.post('/order/addgoodToOrder', data);
+
     }
 
 }
