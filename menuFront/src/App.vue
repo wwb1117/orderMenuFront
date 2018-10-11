@@ -32,6 +32,15 @@
     div {
         box-sizing: border-box;
     }
+    .padd20{
+        padding: 20rpx;
+    }
+    .floatLeft{
+        float: left;
+    }
+    .floatRight{
+        float: right;
+    }
 
     /* this rule will be remove */
     * {

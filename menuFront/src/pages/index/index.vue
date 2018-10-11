@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div style="height: 100%;" class="container">
         <div style="width: 100%" class="searchBar">
             <div class="page">
                 <div class="page__bd">
@@ -23,7 +23,7 @@
                     <div class="weui-cells searchbar-result" v-if="inputVal.length > 0">
                         <navigator class="weui-cell" hover-class="weui-cell_active">
                             <div class="weui-cell__bd">
-                                <div>实时搜索文本1122</div>
+                                <div>实时搜索文本</div>
                             </div>
                         </navigator>
                         <navigator class="weui-cell" hover-class="weui-cell_active">
@@ -55,7 +55,7 @@
                         :class="index===currentIndex ? 'current' : ''"
                         @click="selectMenu(index, $event)"
                     >
-                       <p class="text">{{menu.cateName}}</p>
+                       <p class="text">{{menu.categoryName}}</p>
                     </li>
                 </ul>
             </scroll-view>
@@ -66,17 +66,17 @@
                 scroll-with-animation="true">
                 <ul>
                     <li class="right_item_li" v-for="(menu, i) in menus" :key="i" :id="'con_'+i">
-                        <div class="title">{{menu.cateName}}</div>
+                        <div class="title">{{menu.categoryName}}</div>
                         <ul>
-                            <li v-for="(item, j) in menu.data" :key="j">
+                            <li v-for="(item, j) in menu.goodsList" :key="j">
                                 <div class="goods_wrapper">
-                                    <img style="width: 100%;height: 100%" src="../../../static/img/food.jpg" alt="food">
+                                    <img style="width: 100%;height: 100%" :src="item.img" alt="food">
                                     <div class="goods_wrapper_item">
-                                        <span v-text="item.goodsName"></span><br>
+                                        <span v-text="item.goodName"></span><br>
                                         <span>¥</span>
                                         <span v-text="item.lowPrice"></span>
                                         <span>起</span>
-                                        <button class="weui-btn" size="mini" type="warn">选规格</button>
+                                        <button class="weui-btn" @click="goodSkuBtnClick(item)" size="mini" type="warn">选规格</button>
                                     </div>
                                 </div>
                             </li>
@@ -84,6 +84,53 @@
                     </li>
                 </ul>
             </scroll-view>
+        </div>
+
+        <div v-show="goodSkuDialog" class="goodSkuDialogWrap">
+            <div class="goodSkuDialog">
+                <div class="dialogImgHeader">
+                    <div class="dialogClose">
+                        <icon type="cancel" @click="dialogCloseEvent" class="weui-flex__item" :size="25" />
+                    </div>
+                    <img :src="currentGood.img" style="width: 100%" alt="">
+                </div>
+                <div class="countWrap" style="padding: 0 20rpx 0rpx 20rpx;">
+                    <div class="floatLeft">选择数量</div>
+                    <div class="floatRight">
+                        <button @click="countReduce" size="mini" type="warn">-</button>
+                        <button style="margin: 0 20rpx;" size="mini" type="defalut">{{currentCount}}</button>
+                        <button @click="countAdd" size="mini" type="warn">+</button>
+                    </div>
+                </div>
+                <div v-show="currentGood.sizeSkuList.length > 0" class="sizeSkuWrap">
+                    <div style="padding: 0 20rpx 20rpx 20rpx;">
+                        选择规格
+                    </div>
+                    <div>
+                        <button v-for="(item, index) in currentGood.sizeSkuList" :key="index" :type="index == currentSizeIndex ? 'warn' : 'defalut'" @click="skuSizeChooseEvent(index)" style="margin: 0 20rpx;" size="mini" >{{item.skuName}}</button>
+                    </div>
+                </div>
+                <div v-show="currentGood.cookSkuList.length > 0" class="cookSkuWrap">
+                    <div style="padding: 0 20rpx 20rpx 20rpx;">
+                        选择做法
+                    </div>
+                    <div>
+                        <button v-for="(item, index) in currentGood.cookSkuList" :key="index" :type="index == currentCookIndex ? 'warn' : 'defalut'" @click="skuCookChooseEvent(index)" style="margin: 0 20rpx;" size="mini" >{{item.skuName}}</button>
+                    </div>
+                </div>
+
+                <div class="goodSkuDialogFooter">
+                    <div v-if="currentPrice" style="float: left">
+                        <span>单价: </span>
+                        {{currentPrice}}
+                        <span>元</span>
+                    </div>
+                    <div style="float: right">
+                        <button type="warn" @click="chooseGoodAddEvent" size="mini">确定</button>
+                    </div>
+                </div>
+
+            </div>
         </div>
 
         <div class="footer">
@@ -95,13 +142,23 @@
 
 <script>
     import menuData from '../../data/menu'
+    import api from 'api/index'
     export default {
         data() {
             return {
                 inputShowed: false,
+                goodSkuDialog: false,
                 inputVal: "",
                 userInfo: {},
-
+                currentCount: 1,
+                currentSizeIndex: null,
+                currentCookIndex: null,
+                currentPrice: null,
+                currentGood: {
+                    img: '',
+                    sizeSkuList: [],
+                    cookSkuList: []
+                },
                 contentId: '',
                 navId: '', // 导航模块对应的id，用来联动内容区域
                 currentIndex: 0,
@@ -130,6 +187,55 @@
             }
         },
         methods: {
+            chooseGoodAddEvent(){
+
+                if (currentGood.sizeSkuList.length > 0 && this.currentSizeIndex == null) {
+
+                }
+                let param = {
+                    goodCount: this.currentCount,
+                    goodUnitPrice: this.currentPrice,
+                    goodTotalPrice: this.currentPrice * this.currentCount
+                }
+
+                api.addGoodToOrder().then((response) => {
+
+                })
+            },
+            skuSizeChooseEvent(index){
+                this.currentSizeIndex = index
+                this.currentPrice = this.currentGood.sizeSkuList[index].price
+            },
+            skuCookChooseEvent(index){
+                this.currentCookIndex = index
+            },
+            countReduce(){
+                this.currentCount = this.currentCount  - 1
+                if (this.currentCount <= 0) {
+                    this.currentCount = 0
+                }
+            },
+            countAdd(){
+                this.currentCount = this.currentCount  + 1
+            },
+            dialogCloseEvent(){
+                this.goodSkuDialog = false
+                this.currentCount = 1
+                this.currentSizeIndex = null
+                this.currentCookIndex = null
+                this.currentPrice = null
+            },
+            goodSkuBtnClick(goodinfo){
+                this.goodSkuDialog = true
+                var param = {
+                    goodId: goodinfo._id
+                }
+
+                this.currentPrice = goodinfo.lowPrice
+                api.getGood(param).then((response) => {
+                    this.currentGood = response.data
+                })
+            },
             selectMenu(index) {
                 this.contentId = `con_${index}`
                 this.currentIndex = index
@@ -195,6 +301,11 @@
             },
             inputTyping(e) {
                 this.inputVal = e.mp.detail.value
+            },
+            getMenuData(){
+                api.getMenu().then((response) => {
+                    this.menus = response.data
+                })
             }
 
         },
@@ -208,7 +319,12 @@
                 var scene = decodeURIComponent(options.scene)
 
                 this.$store.commit('setDeskNo', scene)
+                this.getMenuData()
+
             }
+        },
+        activated(){
+
         },
         onHide() {
             this.deskNum = null
@@ -311,5 +427,42 @@
 
     margin-top: 10rpx;
     font-size: 28rpx;
+}
+.goodSkuDialogWrap{
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 0;
+    z-index: 99;
+}
+.goodSkuDialog{
+    width: 90%;
+    height: 80%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 199;
+    background: #fff;
+    border-radius: 10rpx;
+}
+.dialogClose{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 199;
+}
+.countWrap{
+    overflow: hidden;
+}
+.goodSkuDialogFooter{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding: 20rpx;
+    box-shadow: 0px -1rpx 10rpx 0rpx #ebeef5;
 }
 </style>
