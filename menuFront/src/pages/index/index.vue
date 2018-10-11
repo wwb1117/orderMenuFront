@@ -23,11 +23,9 @@
                     <div class="weui-cells searchbar-result" v-if="inputVal.length > 0">
                         <navigator class="weui-cell" hover-class="weui-cell_active">
                             <div class="weui-cell__bd">
-<<<<<<< HEAD
+
                                 <div>实时搜索文本</div>
-=======
-                                <div>eeeeee</div>
->>>>>>> fae1b82e0d1248843f349c6de8ab9bbbe125ab96
+
                             </div>
                         </navigator>
                         <navigator class="weui-cell" hover-class="weui-cell_active">
@@ -145,6 +143,7 @@
 </template>
 
 <script>
+
 
     import toast from 'mpvue-toast'
 
