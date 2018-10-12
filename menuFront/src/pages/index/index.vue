@@ -135,7 +135,7 @@
 
         <div style="padding: 30rpx 20rpx 0; display: flex; justify-content: space-between;" class="footer">
             <div>
-                <img style="width: 35px; height: 35px; vertical-align:middle; margin-right: 20rpx;" src="../../../static/img/shop.png" alt="">
+                <img style="width: 35px; height: 35px; vertical-align:middle; margin-right: 20rpx;" src="http://192.168.1.100:3000/images/shop.png" alt="">
                 <span>你已点了3个菜</span>
             </div>
             <div style="text-align: right;">
@@ -159,7 +159,7 @@
         data() {
             return {
                 toastClassName: 'warnMsg',
-                toastIconClass: 'fa fa-exclamation-circle',
+                toastIconClass: 'iconfont icon-jinggao',
                 inputShowed: false,
                 goodSkuDialog: false,
                 inputVal: "",
@@ -209,7 +209,7 @@
                     this.msgText = '请选择规格!'
                     this.msgvisible = true
                     this.toastClassName = 'warnMsg'
-                    this.toastIconClass = 'fa fa-exclamation-circle'
+                    this.toastIconClass = 'iconfont icon-jinggao'
 
                     setTimeout(() => {
                         this.msgvisible = false
@@ -220,7 +220,7 @@
                     this.msgText = '请选择口味!'
                     this.msgvisible = true
                     this.toastClassName = 'warnMsg'
-                    this.toastIconClass = 'fa fa-exclamation-circle'
+                    this.toastIconClass = 'iconfont icon-jinggao'
 
                     setTimeout(() => {
                         this.msgvisible = false
@@ -256,7 +256,7 @@
                     this.msgText = '商品已加入订单!'
                     this.goodSkuDialog = false
                     this.toastClassName = 'successMsg'
-                    this.toastIconClass = 'fa fa-check-circle'
+                    this.toastIconClass = 'iconfont icon-chenggong'
                     this.msgvisible = true
 
                     setTimeout(() => {

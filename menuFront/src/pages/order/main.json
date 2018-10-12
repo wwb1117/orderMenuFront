@@ -1,8 +1,4 @@
 {
-    "navigationBarTitleText": "欢迎点餐",
-    "usingComponents": {
-        "i-button": "../../../static/iview/button/index",
-        "i-toast": "../../static/iview/toast/index",
-        "i-input": "../../../static/iview/input/index"
-    }
+    "navigationBarTitleText": "欢迎点餐"
+
 }

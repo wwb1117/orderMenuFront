@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import './assets/css/weui.css'
-import 'font-awesome/css/font-awesome.min.css'
+import './assets/css/font.css'
 
 import store from './store'
 Vue.prototype.$store = store;
