@@ -45,7 +45,10 @@
         background-color: #fdf6ec !important;
         color: #e6a23c !important;
     }
-
+    .successMsg{
+        background-color: #f0f9eb !important;
+        color: #67c23a !important;
+    }
     /* this rule will be remove */
     * {
         transition: width 2s;
@@ -53,5 +56,7 @@
         -webkit-transition: width 2s;
         -o-transition: width 2s;
     }
-
+    page{
+        height: 100%;
+    }
 </style>

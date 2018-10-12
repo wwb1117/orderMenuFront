@@ -23,9 +23,7 @@
                     <div class="weui-cells searchbar-result" v-if="inputVal.length > 0">
                         <navigator class="weui-cell" hover-class="weui-cell_active">
                             <div class="weui-cell__bd">
-
                                 <div>实时搜索文本</div>
-
                             </div>
                         </navigator>
                         <navigator class="weui-cell" hover-class="weui-cell_active">
@@ -135,15 +133,21 @@
             </div>
         </div>
 
-        <div class="footer">
-
+        <div style="padding: 30rpx 20rpx 0; display: flex; justify-content: space-between;" class="footer">
+            <div>
+                <img style="width: 35px; height: 35px; vertical-align:middle; margin-right: 20rpx;" src="../../../static/img/shop.png" alt="">
+                <span>你已点了3个菜</span>
+            </div>
+            <div style="text-align: right;">
+                <button size="mini" style="border-radius: 50rpx; line-height:2.55555556;" type="warn">选好了</button>
+            </div>
         </div>
-        <toast className="warnMsg" iconClass="fa fa-exclamation-circle" :message="msgText" :visible="msgvisible"></toast>
+        <!-- <toast className="warnMsg" :iconClass="fa fa-exclamation-circle" :message="msgText" :visible="msgvisible"></toast> -->
+        <toast :className="toastClassName" :iconClass="toastIconClass" :message="msgText" :visible="msgvisible"></toast>
     </div>
 </template>
 
 <script>
-
 
     import toast from 'mpvue-toast'
 
@@ -154,6 +158,8 @@
         },
         data() {
             return {
+                toastClassName: 'warnMsg',
+                toastIconClass: 'fa fa-exclamation-circle',
                 inputShowed: false,
                 goodSkuDialog: false,
                 inputVal: "",
@@ -202,20 +208,24 @@
                 if (this.currentGood.sizeSkuList.length > 0 && this.currentSizeIndex === null) {
                     this.msgText = '请选择规格!'
                     this.msgvisible = true
+                    this.toastClassName = 'warnMsg'
+                    this.toastIconClass = 'fa fa-exclamation-circle'
 
                     setTimeout(() => {
                         this.msgvisible = false
                     }, 2000)
-
+                    return
                 }
                 if (this.currentGood.cookSkuList.length > 0 && this.currentCookIndex === null) {
                     this.msgText = '请选择口味!'
                     this.msgvisible = true
+                    this.toastClassName = 'warnMsg'
+                    this.toastIconClass = 'fa fa-exclamation-circle'
 
                     setTimeout(() => {
                         this.msgvisible = false
                     }, 2000)
-
+                    return
                 }
                 let param = {
                     deskNo: this.$store.state.deskNo,
@@ -243,7 +253,15 @@
                 }
 
                 api.addGoodToOrder(param).then((response) => {
-                    console.log(response)
+                    this.msgText = '商品已加入订单!'
+                    this.goodSkuDialog = false
+                    this.toastClassName = 'successMsg'
+                    this.toastIconClass = 'fa fa-check-circle'
+                    this.msgvisible = true
+
+                    setTimeout(() => {
+                        this.msgvisible = false
+                    }, 2000)
                 })
             },
             skuSizeChooseEvent(index){
@@ -255,8 +273,8 @@
             },
             countReduce(){
                 this.currentCount = this.currentCount  - 1
-                if (this.currentCount <= 0) {
-                    this.currentCount = 0
+                if (this.currentCount <= 1) {
+                    this.currentCount = 1
                 }
             },
             countAdd(){
@@ -305,12 +323,18 @@
                 var that = this
                 var query = wx.createSelectorQuery()
 
+                that.listHeight = []
+
                 query.selectAll('.right_item_li').boundingClientRect(function(rects){
                     if (rects.length > 0) {
                         rects.forEach(function(rect){
                             height += rect.height
                             that.listHeight.push(height)
                         })
+                    } else {
+                        setTimeout(() => {
+                            that._calculateHeight()
+                        }, 500)
                     }
                 })
                 query.select('.right_menu_scroll').boundingClientRect((rect) => {
@@ -357,26 +381,23 @@
             getMenuData(){
                 api.getMenu().then((response) => {
                     this.menus = response.data
-<<<<<<< HEAD
-=======
-                    console.log(this.menus)
->>>>>>> fae1b82e0d1248843f349c6de8ab9bbbe125ab96
                 })
             }
 
         },
+        created(){
+            this.getMenuData()
+        },
         mounted(){
-            this.$nextTick(() => {
+            setTimeout(() => {
                 this._calculateHeight()
-            })
+            }, 0)
         },
         onLoad(options) {
             if (options.scene){
                 var scene = decodeURIComponent(options.scene)
 
                 this.$store.commit('setDeskNo', scene)
-                this.getMenuData()
-
             }
         },
         activated(){
@@ -391,16 +412,21 @@
 
 <style scoped>
 .footer{
-    height: 130rpx;
-    border: 1rpx solid #ebebeb;
     width: 100%;
+    position: absolute;
+    bottom: 0rpx;
+    height: 130rpx;
 }
 .container{
     overflow: hidden;
+    position: relative;
 }
 .goodsWrap{
-    height: 950rpx;
     overflow: auto;
+    position: absolute;
+    top: 120rpx;
+    z-index: 9;
+    bottom: 130rpx;
 }
 .left_menu_scroll{
     width: 270rpx;
@@ -424,7 +450,12 @@
     text-align: center;
     color: #d44022;
 }
-
+.searchBar{
+    height: 120rpx;
+    position: absolute;
+    top: 0;
+    z-index: 99;
+}
 .searchbar-result {
   margin-top: 0;
   font-size: 14rpx;
@@ -490,7 +521,7 @@
     background: rgba(0, 0, 0, 0.7);
     position: absolute;
     top: 0;
-    z-index: 99;
+    z-index: 199;
 }
 .goodSkuDialog{
     width: 90%;
@@ -501,7 +532,6 @@
     top: 0;
     bottom: 0;
     margin: auto;
-    z-index: 199;
     background: #fff;
     border-radius: 10rpx;
 }
