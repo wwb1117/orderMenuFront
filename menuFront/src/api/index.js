@@ -12,7 +12,8 @@ export default {
     },
     addGoodToOrder(data){
         return WXHTTP.post('/order/addgoodToOrder', data);
-
+    },
+    getShopOrderList(data){
+        return WXHTTP.get('/order/shopList', data);
     }
-
 }

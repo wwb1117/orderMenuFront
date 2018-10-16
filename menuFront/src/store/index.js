@@ -8,11 +8,15 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
     state: {
         count: 0,
+        userInfo: {},
         deskNo: null
     },
     mutations: {
         setDeskNo(state, value){
             state.deskNo = value
+        },
+        setUserInfo(state, value){
+            state.userInfo = value
         },
         increment: (state) => {
             const obj = state
