@@ -7,7 +7,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
     state: {
-        count: 0,
+        goodCount: 0,
         userInfo: {},
         deskNo: null
     },
@@ -18,15 +18,8 @@ const store = new Vuex.Store({
         setUserInfo(state, value){
             state.userInfo = value
         },
-        increment: (state) => {
-            const obj = state
-
-            obj.count += 1
-        },
-        decrement: (state) => {
-            const obj = state
-
-            obj.count -= 1
+        setGoodCount(state, value){
+            state.goodCount = value
         }
     }
 })

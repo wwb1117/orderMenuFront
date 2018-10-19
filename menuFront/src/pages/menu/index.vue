@@ -47,7 +47,7 @@
         </div>
 
         <div class="width100 goodsWrap weui-flex">
-            <scroll-view class="left_menu_scroll" scroll-with-animation="true" scroll-y :scroll-into-view="navId">
+            <scroll-view style="position: relative;" class="left_menu_scroll" scroll-with-animation="true" scroll-y :scroll-into-view="navId">
                 <ul>
                     <li class="left_menu_item"
                         :id="'nav_'+index"
@@ -59,7 +59,7 @@
                     </li>
                 </ul>
             </scroll-view>
-            <scroll-view class="right_menu_scroll"
+            <scroll-view style="position: relative;" class="right_menu_scroll"
                 scroll-y
                 :scroll-into-view="contentId"
                 @scroll="onScroll"
@@ -136,8 +136,8 @@
         <div style="padding: 30rpx 20rpx 0; display: flex; justify-content: space-between;" class="footer">
             <div>
                 <img @click="openShopEvent" style="width: 35px; height: 35px; vertical-align:middle; margin-right: 20rpx;" src="http://192.168.1.101:3000/images/shop.png" alt="">
-                <span v-if="shopCount != 0">你已点了<span v-text="shopCount"></span>个菜</span>
-                <span v-if="shopCount == 0">客官点点什么吧</span>
+                <span v-if="goodCount != 0">你已点了<span >{{goodCount}}</span>个菜</span>
+                <span v-if="goodCount == 0">客官点点什么吧</span>
             </div>
             <div style="text-align: right;">
                 <button size="mini" style="border-radius: 50rpx; line-height:2.55555556;" type="warn">选好了</button>
@@ -166,7 +166,6 @@
                 inputVal: "",
                 userInfo: {},
 
-                shopCount: 0,
                 shopInfo: {},
 
                 currentCount: 1,
@@ -174,6 +173,7 @@
                 currentCookIndex: null,
                 currentPrice: null,
 
+                goodCount: 0,
 
                 currentGood: {
                     img: '',
@@ -206,7 +206,7 @@
 
                     if (h > this.contentHeight) {
                         // 导航滑动
-                        this.navId = `nav_${this.currentIndex - 3}` //特殊处理,待修改
+                        this.navId = `nav_${this.currentIndex}` //特殊处理,待修改
                     } else {
                         this.navId = 'nav_0'
                     }
@@ -222,7 +222,10 @@
             getShopList(){
                 api.getShopOrderList({deskNo: this.$store.state.deskNo}).then((response) => {
                     this.shopInfo = response.data
-                    this.shopCount = this.shopInfo.goodCount
+
+                    if (this.shopInfo.goodCount) {
+                        this.goodCount = this.shopInfo.goodCount
+                    }
                 })
             },
             chooseGoodAddEvent(){
@@ -250,6 +253,8 @@
                 }
                 let param = {
                     deskNo: this.$store.state.deskNo,
+                    categoryId: this.currentGood.categoryId,
+                    categoryName: this.currentGood.categoryName,
                     avatarUrl: this.$store.state.userInfo.userInfo.avatarUrl,
                     nickName: this.$store.state.userInfo.userInfo.nickName,
                     goodId: this.currentGood._id,
@@ -420,11 +425,8 @@
                 this._calculateHeight()
             }, 0)
         },
-        onLoad() {
-
-        },
-        activated(){
-            console.log("1223")
+        onShow() {
+            this.getShopList()
         },
         onHide() {
             this.deskNum = null

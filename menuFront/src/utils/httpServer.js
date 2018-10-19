@@ -37,7 +37,8 @@ export default {
     },
     put(url, data) {
         return requestAll(url, qs.stringify(data), {
-            'X-Requested-With': 'XMLHttpRequest'
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         }, 'PUT')
     },
     get(url, data) {

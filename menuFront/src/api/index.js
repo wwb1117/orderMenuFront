@@ -15,5 +15,8 @@ export default {
     },
     getShopOrderList(data){
         return WXHTTP.get('/order/shopList', data);
+    },
+    shopListChange(data){
+        return WXHTTP.put('/order/shopList/change', data);
     }
 }
