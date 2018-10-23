@@ -10,8 +10,8 @@
 	},
 	"miniprogramRoot": "dist/",
 	"compileType": "miniprogram",
-	"appid": "wx3e388ef2b022d98c",
-	"projectname": "n",
+	"appid": "wx2e4f118e527bcf44",
+	"projectname": "%E9%BE%99%E5%BA%AD%E7%82%B9%E9%A4%90",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -33,7 +33,7 @@
 			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "自定义扫码",
 					"pathName": "pages/index/main",
 					"query": "scene=8",
