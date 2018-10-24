@@ -21,24 +21,15 @@
                         <div class="weui-search-bar__cancel-btn" :hidden="!inputShowed" @click="hideInput">取消</div>
                     </div>
                     <div class="weui-cells searchbar-result" v-if="inputVal.length > 0">
-                        <navigator class="weui-cell" hover-class="weui-cell_active">
-                            <div class="weui-cell__bd">
-                                <div>实时搜索文本</div>
-                            </div>
-                        </navigator>
-                        <navigator class="weui-cell" hover-class="weui-cell_active">
-                            <div class="weui-cell__bd">
-                                <div>实时搜索文本</div>
-                            </div>
-                        </navigator>
-                        <navigator class="weui-cell" hover-class="weui-cell_active">
-                            <div class="weui-cell__bd">
-                                <div>实时搜索文本</div>
-                            </div>
-                        </navigator>
-                        <navigator class="weui-cell" hover-class="weui-cell_active">
-                            <div class="weui-cell__bd">
-                                <div>实时搜索文本</div>
+                        <navigator v-for="item in chooseGoodList" :key="item._id" class="weui-cell" hover-class="weui-cell_active">
+                            <div @click="chooseGoodClick(item)" class="weui-cell__bd">
+                                <div>
+                                    <img style="float: left; width: 50rpx; height: 50rpx; margin-right: 20rpx;" :src="item.img" alt="">
+                                    {{item.goodName}}<br>
+                                    ¥
+                                    {{item.lowPrice}}
+                                    起
+                                </div>
                             </div>
                         </navigator>
                     </div>
@@ -166,6 +157,7 @@
                 inputVal: "",
                 userInfo: {},
 
+                chooseGoodList: [],
                 shopInfo: {},
 
                 currentCount: 1,
@@ -409,6 +401,13 @@
             },
             inputTyping(e) {
                 this.inputVal = e.mp.detail.value
+
+                api.searchGoodList({goodName: this.inputVal}).then((response) => {
+                    this.chooseGoodList = response.data.list
+                })
+            },
+            chooseGoodClick(goodinfo){
+                this.goodSkuBtnClick(goodinfo)
             },
             getMenuData(){
                 api.getMenu().then((response) => {
