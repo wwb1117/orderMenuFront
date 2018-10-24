@@ -54,6 +54,7 @@
 
                 this.$store.commit('setDeskNo', scene)
             }
+            console.log(this.$store.state.deskNo)
             wx.login({
                 success(code){
                     console.log(code)

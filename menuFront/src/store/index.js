@@ -9,11 +9,15 @@ const store = new Vuex.Store({
     state: {
         goodCount: 0,
         userInfo: {},
+        orderInfo: {},
         deskNo: null
     },
     mutations: {
         setDeskNo(state, value){
             state.deskNo = value
+        },
+        setOrderInfo(state, value){
+            state.orderInfo = value
         },
         setUserInfo(state, value){
             state.userInfo = value

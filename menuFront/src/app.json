@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/main",
     "pages/shop/main",
+    "pages/order/main",
     "pages/menu/main"
   ],
   "window": {
