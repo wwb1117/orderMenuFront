@@ -215,9 +215,7 @@
                 api.getShopOrderList({deskNo: this.$store.state.deskNo}).then((response) => {
                     this.shopInfo = response.data
 
-                    if (this.shopInfo.goodCount) {
-                        this.goodCount = this.shopInfo.goodCount
-                    }
+                    this.goodCount = this.shopInfo.goodCount
                 })
             },
             chooseGoodAddEvent(){
