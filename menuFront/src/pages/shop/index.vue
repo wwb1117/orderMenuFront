@@ -17,7 +17,7 @@
                 <div class="weui-form-preview__value">合计</div>
                 <div style="margin: 0 10rpx" class="weui-form-preview__value"> : </div>
                 <div class="weui-form-preview__value"> ¥ </div>
-                <div class="weui-form-preview__value">{{shopInfo.orderMony}}</div>
+                <div class="weui-form-preview__value">{{shopInfo.orderMoney}}</div>
                 <div style="position: absolute; right: 30rpx; color:#999;">
                     <i style="font-size: 40rpx;" class="iconfont icon-shanchu"><span style="font-size: 30rpx;">清空</span></i>
                 </div>
@@ -32,11 +32,11 @@
                     <div style="font-size: 28rpx" v-text="item.nickName"></div>
                 </div>
                 <div style="float: right; width: 70%; position: relative; border-bottom: 1px dashed #d9d9d9; height: 180rpx">
-                    <div style="position: absolute; left: 0; top: 50rpx; font-size: 28rpx; width: 40%;">
+                    <div style="position: absolute; left: 0; top: 50rpx; font-size: 28rpx; width: 35%;">
                         <p style="font-size: 32rpx; overflow: hidden; white-space: nowrap;text-overflow: ellipsis;" v-text="item.goodName"></p>
                         <p style="color: #eb2104">{{item.goodTotalPrice}}</p>
                     </div>
-                    <div style="position: absolute; right: 0; top: 60rpx; width: 60%;">
+                    <div style="position: absolute; right: 0; top: 60rpx; width: 65%;">
                         <button @click="countReduce(index)" size="mini" type="warn">-</button>
                         <button style="margin: 0 20rpx;" size="mini" type="defalut">{{item.goodCount}}</button>
                         <button @click="countAdd(index)" size="mini" type="warn">+</button>

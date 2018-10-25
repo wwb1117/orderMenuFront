@@ -3,8 +3,8 @@
         <div class="deskHeader">
             {{deskNo}}
             <span style="margin-left: 5rpx">桌</span>
-            <div class="moneyHesder">
-                {{orderInfo.orderMoney}}
+            <div class="moneyHesder color_red">
+                {{orderInfo.orderMoney}} 元
             </div>
         </div>
     </div>
@@ -33,6 +33,10 @@
         width: 100%;
         text-align: center
     }
+    .moneyHesder{
+        font-size: 40rpx;
+    }
+
 </style>
 
 

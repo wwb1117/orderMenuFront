@@ -126,7 +126,7 @@
 
         <div style="padding: 30rpx 20rpx 0; display: flex; justify-content: space-between;" class="footer">
             <div>
-                <img @click="openShopEvent" style="width: 35px; height: 35px; vertical-align:middle; margin-right: 20rpx;" src="http://192.168.1.101:3000/images/shop.png" alt="">
+                <img @click="openShopEvent" style="width: 35px; height: 35px; vertical-align:middle; margin-right: 20rpx;" src="https://www.wangwenbei.cn/images/shop.png" alt="">
                 <span v-if="goodCount">你已点了<span >{{goodCount}}</span>个菜</span>
                 <span v-if="!goodCount">客官点点什么吧</span>
             </div>

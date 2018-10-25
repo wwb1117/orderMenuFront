@@ -1,6 +1,6 @@
 import qs from 'qs'
-// var baseUrl = 'http://div.mytest.com/api'
-var baseUrl = 'https://www.wangwenbei.cn/api'
+var baseUrl = 'http://div.mytest.com/api'
+// var baseUrl = 'https://www.wangwenbei.cn/api'
 
 function requestAll(url, data, header, method) {
     return new Promise((resolve, reject) => {

@@ -62,4 +62,7 @@
     .center{
         text-align: center;
     }
+    .color_red{
+        color: #eb2104;
+    }
 </style>
