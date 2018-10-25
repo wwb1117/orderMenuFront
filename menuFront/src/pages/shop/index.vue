@@ -16,16 +16,14 @@
             <div class="weui-form-preview__ft">
                 <div class="weui-form-preview__value">合计</div>
                 <div style="margin: 0 10rpx" class="weui-form-preview__value"> : </div>
-                <div class="weui-form-preview__value"> ¥ </div>
-                <div class="weui-form-preview__value">{{shopInfo.orderMoney}}</div>
+                <div class="weui-form-preview__value"> ¥ {{shopInfo.orderMoney}} </div>
                 <div style="position: absolute; right: 30rpx; color:#999;">
                     <i style="font-size: 40rpx;" class="iconfont icon-shanchu"><span style="font-size: 30rpx;">清空</span></i>
                 </div>
             </div>
         </div>
         <div v-for="(item, index) in shopInfo.goodList" :key="index" style="padding: 20rpx; overflow: hidden;">
-            <div v-text="item.categoryName" style="line-height: 2.0; text-align: center; border-bottom: 1px solid #d9d9d9" class="header">
-            </div>
+            <div v-text="item.categoryName" style="line-height: 2.0; text-align: center; border-bottom: 1px solid #d9d9d9" class="header"></div>
             <div>
                 <div style="float: left; width: 20%">
                     <img style="width: 100rpx; height: 100rpx; border-radius: 50rpx; margin-top: 20rpx" :src="item.avatarUrl" :alt="item.nickName">
@@ -34,7 +32,7 @@
                 <div style="float: right; width: 70%; position: relative; border-bottom: 1px dashed #d9d9d9; height: 180rpx">
                     <div style="position: absolute; left: 0; top: 50rpx; font-size: 28rpx; width: 35%;">
                         <p style="font-size: 32rpx; overflow: hidden; white-space: nowrap;text-overflow: ellipsis;" v-text="item.goodName"></p>
-                        <p style="color: #eb2104">{{item.goodTotalPrice}}</p>
+                        <p style="color: #eb2104"> ¥ {{item.goodTotalPrice}}</p>
                     </div>
                     <div style="position: absolute; right: 0; top: 60rpx; width: 65%;">
                         <button @click="countReduce(index)" size="mini" type="warn">-</button>

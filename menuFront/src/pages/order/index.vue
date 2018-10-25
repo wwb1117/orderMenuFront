@@ -31,7 +31,8 @@
 <style scoped>
     .deskHeader{
         width: 100%;
-        text-align: center
+        text-align: center;
+        padding: 10rpx 0;
     }
     .moneyHesder{
         font-size: 40rpx;
