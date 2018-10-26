@@ -41,6 +41,7 @@
                     },
                     fail: res => { //用户拒绝授权
                         this.isShowAhturoizeWarning = true
+                        console.log(res)
                     }
                 })
             },

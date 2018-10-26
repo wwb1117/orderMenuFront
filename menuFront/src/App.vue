@@ -62,7 +62,19 @@
     .center{
         text-align: center;
     }
+    .right{
+        text-align: right;
+    }
     .color_red{
         color: #eb2104;
+    }
+    .color_green{
+        color: #67c23a;
+    }
+    .width50{
+        width: 50rpx;
+    }
+    .font_24{
+        font-size: 24rpx;
     }
 </style>
