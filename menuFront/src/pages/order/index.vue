@@ -14,11 +14,11 @@
                 </div>
                 <div class="weui-form-preview__bd">
                     <div class="weui-form-preview__item">
-                        <div class="weui-form-preview__label">合计: 4项</div>
+                        <div class="weui-form-preview__label">合计: {{orderInfo.goodCount}}项</div>
                     </div>
                     <div class="weui-form-preview__item font_24">
                         <div class="weui-form-preview__label">消费金额</div>
-                        <div class="weui-form-preview__value">¥224.00</div>
+                        <div class="weui-form-preview__value">¥{{orderInfo.orderMoney}}</div>
                     </div>
                     <div class="weui-form-preview__item font_24">
                         <div class="weui-form-preview__label">优惠金额</div>
@@ -28,7 +28,7 @@
                 <div class="weui-form-preview__hd order_bottom">
                     <div class="weui-form-preview__item">
                         <div class="weui-form-preview__label">付款金额</div>
-                        <div class="weui-form-preview__value_in-hd right color_red">¥2400.00</div>
+                        <div class="weui-form-preview__value_in-hd right color_red">¥{{orderInfo.orderMoney}}</div>
                     </div>
                 </div>
             </div>
@@ -49,9 +49,9 @@
 
         <div style="width: 100%;" class="footer">
             <div @click="orderGo" style="width: 30%; background: #000;">
-                继续点餐
+                继续点菜
             </div>
-            <div style="width: 70%; background: #eb2104">
+            <div @click="goPay" style="width: 70%; background: #eb2104">
                 立即支付
             </div>
         </div>
@@ -68,14 +68,27 @@
         },
         methods: {
             orderGo(){
+                let pageArr = getCurrentPages()
+                let index = 0
 
+                for (let i = pageArr.length - 1; i >= 0; i--) {
+                    if (pageArr[i].__route__ == 'pages/menu/main') {
+                        break;
+                    }
+                    index++
+                }
+                wx.navigateBack({
+                    delta: index
+                })
+            },
+            goPay(){
 
             }
         },
         onShow(){
             this.deskNo = this.$store.state.deskNo
             this.orderInfo = this.$store.state.orderInfo
-            console.log(this)
+            console.log(this.orderInfo)
 
         }
     }

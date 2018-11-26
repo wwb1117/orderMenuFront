@@ -108,8 +108,17 @@
                 })
             },
             goOnEvent(){
+                let pageArr = getCurrentPages()
+                let index = 0
+
+                for (let i = pageArr.length - 1; i >= 0; i--) {
+                    if (pageArr[i].__route__ == 'pages/menu/main') {
+                        break;
+                    }
+                    index++
+                }
                 wx.navigateBack({
-                    delta: 1
+                    delta: index
                 })
             },
             makeOrder(){

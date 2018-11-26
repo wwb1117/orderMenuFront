@@ -140,9 +140,7 @@
 </template>
 
 <script>
-
     import toast from 'mpvue-toast'
-
     import api from 'api/index'
     export default {
         components: {
@@ -241,6 +239,7 @@
                     }, 2000)
                     return
                 }
+
                 let param = {
                     deskNo: this.$store.state.deskNo,
                     categoryId: this.currentGood.categoryId,
@@ -252,6 +251,7 @@
                     goodCount: this.currentCount,
                     goodUnitPrice: this.currentPrice,
                     goodTotalPrice: this.currentPrice * this.currentCount
+                    // goodTotalPrice: math.eval(`${currentPrice} * ${currentCount}`)
                 }
 
                 if (this.currentGood.sizeSkuList.length == 0) {

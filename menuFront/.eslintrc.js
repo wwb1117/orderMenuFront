@@ -19,6 +19,7 @@ module.exports = {
     ],
     globals: {
         wx: true,
+        getCurrentPages: true,
         $Toast: true
     },
     // required to lint *.vue files
